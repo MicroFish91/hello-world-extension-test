@@ -1,17 +1,17 @@
-import * as vscode from 'vscode';
-import { getDate, getWarning, sayHi } from './commands';
-import { initHovers } from './hovers';
+import * as vscode from "vscode";
+import { getDate, getWarning, sayHi } from "./commands";
+import { initHovers } from "./hovers";
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "helloworld" is now active!');
+  console.log('Congratulations, your extension "helloworld" is now active!');
 
-	context.subscriptions.concat([
+  context.subscriptions.concat([
     vscode.commands.registerCommand("helloworld.sayHi", sayHi),
     vscode.commands.registerCommand("helloworld.getDate", getDate),
-		vscode.commands.registerCommand("helloworld.getWarning", getWarning)
+    vscode.commands.registerCommand("helloworld.getWarning", getWarning),
   ]);
 
-	initHovers();
+  initHovers();
 }
 
 export function deactivate() {}

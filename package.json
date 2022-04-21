@@ -10,21 +10,23 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:helloworld.sayhi"
+    "onCommand:helloworld.sayHi",
+		"onCommand:helloworld.getDate",
+		"onCommand:helloworld.getWarning"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "helloworld.sayhi",
+				"command": "helloworld.sayHi",
 				"title": "Hello World - Say Hi"
 			},
 			{
-				"command": "helloworld.gettime",
+				"command": "helloworld.getDate",
 				"title": "Hello World - Get Date"
 			},
 			{
-				"command": "helloworld.getwarning",
+				"command": "helloworld.getWarning",
 				"title": "Hello World - Get Warning"
 			}
 		]

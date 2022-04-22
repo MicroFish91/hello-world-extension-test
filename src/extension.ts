@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { getDate, getWarning, sayHi } from "./commands";
+import { initEventListeners } from "./events";
 import { initHovers } from "./hovers";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -12,6 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
   ]);
 
   initHovers();
+  initEventListeners();
 }
 
 export function deactivate() {}

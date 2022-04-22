@@ -7,7 +7,7 @@ export async function sayHi() {
     "bad"
   );
 
-  if(answer) vscode.window.showInformationMessage(`You answered: ${answer}`);
+  if (answer) vscode.window.showInformationMessage(`You answered: ${answer}`);
 }
 
 export function getDate() {
@@ -15,5 +15,5 @@ export function getDate() {
 }
 
 export function getWarning() {
-  vscode.window.showWarningMessage("I am a warning message.")
+  vscode.window.showWarningMessage("I am a warning message.");
 }

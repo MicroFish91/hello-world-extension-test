@@ -1,17 +1,16 @@
 import * as vscode from "vscode";
-import { DecorationTracker } from "./DecorationTracker";
+import { LineDecorationManager } from "./DecorationManager";
 
 export function initEventListeners() {
-  onExceedCharLimit(); // gjekal;gkjel;ajgkel;akjgkel;ajgel;ajglek;ajglek;ajgl
+  onExceedCharLimit();
 }
 
 function onExceedCharLimit() {
-  const decorationTracker = new DecorationTracker();
+  const decorationTracker = new LineDecorationManager();
   const setTextYellowConfig: vscode.DecorationRenderOptions = { color: "#FFFF00" };
 
   vscode.workspace.onDidChangeTextDocument(
     (e: vscode.TextDocumentChangeEvent) => {
-      console.log(e.contentChanges)
       const { activeTextEditor: editor } = vscode.window;
 
       if (!editor) return;
@@ -23,22 +22,15 @@ function onExceedCharLimit() {
       const lineText = editor.document.lineAt(lastCharPos).text;
       const lastCharText = lineText[charCount];
 
-      const lastCharTextRange: vscode.Range = new vscode.Range(
-        lastCharPos,
-        new vscode.Position(lineCount, charCount + 1),
-      );
-
       if(!lastCharText) return;
 
       if (lineText.length <= 80) {
         const dType = decorationTracker.extractAndRemoveDecoration(lineCount, setTextYellowConfig);
         if (dType) editor.setDecorations(dType, []);
       } else {
-        // Need to extend current Range each time
-        decorationTracker.addDecoration(lineCount, lastCharTextRange, setTextYellowConfig);
-
-        const [range, dType] = decorationTracker.getDecoration(lineCount, setTextYellowConfig);
-        editor.setDecorations(dType, range);
+        decorationTracker.addLineDecoration(lineCount, charCount, setTextYellowConfig);
+        const lineDecoration = decorationTracker.getLineDecoration(lineCount, setTextYellowConfig);
+        editor.setDecorations(lineDecoration!.getDecoration(), lineDecoration!.getRange());
       }
 
       // editor.edit((editBuilder: vscode.TextEditorEdit) => {
@@ -46,4 +38,4 @@ function onExceedCharLimit() {
       // })
     }
   );
-}
+  }
